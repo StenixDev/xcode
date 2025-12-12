@@ -1,10 +1,9 @@
-import { Button } from '@/components/ui/button';
+import HeroSection from '@/components/landing-page/hero-section';
 
 function Home() {
   return (
     <div>
-      Home
-      <Button size='lg'>Click Me</Button>
+      <HeroSection />
     </div>
   );
 }
