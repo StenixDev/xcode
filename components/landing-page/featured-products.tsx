@@ -3,6 +3,27 @@ import SectionHeader from '../common/section-header';
 import { ArrowRightIcon } from 'lucide-react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import ProductCard from '../products/product-card';
+
+const featuredProducts = [
+  {
+    id: 1,
+    name: 'ParityKit',
+    description: 'A toolkit for creating parity',
+    tags: ['SaaS', 'Pricing', 'Global'],
+    votes: 615,
+    isFeatured: true,
+  },
+
+  {
+    id: 2,
+    name: 'Modern Stack',
+    description: 'Learn to build from nextjs',
+    tags: ['Next.js', 'Full-Stack', 'Course'],
+    votes: 123,
+    isFeatured: false,
+  },
+];
 
 function FeaturedProducts() {
   return (
@@ -19,6 +40,11 @@ function FeaturedProducts() {
               View All <ArrowRightIcon className='size-4' />
             </Link>
           </Button>
+        </div>
+        <div className='grid-wrapper'>
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </div>
     </section>
