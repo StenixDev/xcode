@@ -50,7 +50,12 @@ function ProductCard({ product }: { product: Product }) {
               <Button
                 variant={'ghost'}
                 size='icon-sm'
-                className='h-8 w-8 text-primary hover:bg-primary/20'
+                className={cn(
+                  'h-8 w-8 text-primary',
+                  hasVoted
+                    ? 'bg-primary/10 hover:bg-primary/20'
+                    : 'hover:bg-primary/20 hover:text-primary'
+                )}
               >
                 <ChevronUpIcon className='size-5' />
               </Button>
@@ -61,7 +66,6 @@ function ProductCard({ product }: { product: Product }) {
               <Button
                 variant={'ghost'}
                 size='icon-sm'
-                // className='h-8 w-8 text-primary hover:text-destructive'
                 className={cn(
                   'h-8 w-8 text-primary',
                   hasVoted
