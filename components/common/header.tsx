@@ -1,6 +1,15 @@
-import { CompassIcon, HomeIcon, SparkleIcon } from 'lucide-react';
+import { CompassIcon, HomeIcon, SparkleIcon, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignInButton,
+  SignUp,
+  SignUpButton,
+  UserButton,
+} from '@clerk/nextjs';
 
 const Logo = () => {
   return (
@@ -39,19 +48,21 @@ function Header() {
             </Link>
 
             <div className='flex items-center gap-3'>
-              {isSignIn ? (
+              <SignedOut>
+                <SignInButton />
+                <SignUpButton>
+                  <Button>Sign Up</Button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
                 <Button asChild>
                   <Link href={'/submit'}>
                     <SparkleIcon className='size-4' />
                     Submit Project
                   </Link>
                 </Button>
-              ) : (
-                <>
-                  <Button variant={'ghost'}>Sign In</Button>
-                  <Button variant={'ghost'}>Sign Up</Button>
-                </>
-              )}
+                <UserButton />
+              </SignedIn>
             </div>
           </nav>
         </div>
