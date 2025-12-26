@@ -2,7 +2,9 @@ import { Calendar1Icon, RocketIcon } from 'lucide-react';
 import SectionHeader from '../common/section-header';
 import ProductCard from '../products/product-card';
 import EmptyState from '../common/empty-state';
+import GetRecentlyLaundedProducts from '@/lib/products/product-select';
 
+/*
 const recentlyLaunchedProducts = [
   {
     id: 1,
@@ -21,9 +23,10 @@ const recentlyLaunchedProducts = [
     votes: 123,
     isFeatured: false,
   },
-];
+]; */
 
-function RecentlyLaunchedProducts() {
+async function RecentlyLaunchedProducts() {
+  const recentlyLaunchedProducts = await GetRecentlyLaundedProducts();
   return (
     <section className='py-20'>
       <div className='wrapper space-y-8'>
