@@ -10,6 +10,7 @@ import {
   SignUpButton,
   UserButton,
 } from '@clerk/nextjs';
+import { Suspense } from 'react';
 
 const Logo = () => {
   return (
@@ -48,21 +49,23 @@ function Header() {
             </Link>
 
             <div className='flex items-center gap-3'>
-              <SignedOut>
-                <SignInButton />
-                <SignUpButton>
-                  <Button>Sign Up</Button>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
-                <Button asChild>
-                  <Link href={'/submit'}>
-                    <SparkleIcon className='size-4' />
-                    Submit Project
-                  </Link>
-                </Button>
-                <UserButton />
-              </SignedIn>
+              <Suspense fallback={<p>Loading...</p>}>
+                <SignedOut>
+                  <SignInButton />
+                  <SignUpButton>
+                    <Button>Sign Up</Button>
+                  </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                  <Button asChild>
+                    <Link href={'/submit'}>
+                      <SparkleIcon className='size-4' />
+                      Submit Project
+                    </Link>
+                  </Button>
+                  <UserButton />
+                </SignedIn>
+              </Suspense>
             </div>
           </nav>
         </div>
