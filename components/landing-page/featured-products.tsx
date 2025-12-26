@@ -4,7 +4,9 @@ import { ArrowRightIcon } from 'lucide-react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import ProductCard from '../products/product-card';
+import GetFeaturedProducts from '@/lib/products/product-select';
 
+/*
 const featuredProducts = [
   {
     id: 1,
@@ -24,8 +26,11 @@ const featuredProducts = [
     isFeatured: false,
   },
 ];
+*/
 
-function FeaturedProducts() {
+async function FeaturedProducts() {
+  const featuredProducts = await GetFeaturedProducts();
+
   return (
     <section className='py-20 bg-muted/20'>
       <div className='wrapper'>
