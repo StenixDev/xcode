@@ -1,12 +1,26 @@
 'use client';
 
+import { SparkleIcon } from 'lucide-react';
 import FormField from '../forms/form-field';
 import { Button } from '../ui/button';
+import { addProduct } from '@/lib/products/product-actions';
+import { useActionState } from 'react';
+
+const initialState = {
+  success: false,
+  error: {},
+  message: '',
+};
 
 function ProductSubmitForm() {
+  const [state, formAction, isPending] = useActionState(
+    addProduct,
+    initialState
+  );
+
   return (
     <div>
-      <form className='space-y-6'>
+      <form className='space-y-6' action={formAction}>
         <FormField
           label='Product Name*'
           id='name'
@@ -71,6 +85,7 @@ function ProductSubmitForm() {
           helperText='Comma separated tags(e.g AI, SaaS, Productivity)'
         />
         <Button type='submit' size={'lg'} className='w-full'>
+          <SparkleIcon className='size-4' />
           Submit Products
         </Button>
       </form>
