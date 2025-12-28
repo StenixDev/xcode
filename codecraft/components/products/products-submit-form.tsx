@@ -1,6 +1,7 @@
 'use client';
 
 import FormField from '../forms/form-field';
+import { Button } from '../ui/button';
 
 function ProductSubmitForm() {
   return (
@@ -38,6 +39,17 @@ function ProductSubmitForm() {
         />
 
         <FormField
+          label='Description'
+          id='description'
+          name='description'
+          placeholder='Tell us about your product...'
+          required
+          onChange={() => {}}
+          error=''
+          textarea
+        />
+
+        <FormField
           label='Website URL*'
           id='websiteurl'
           name='websiteurl'
@@ -45,7 +57,22 @@ function ProductSubmitForm() {
           required
           onChange={() => {}}
           error=''
+          helperText='Enter your landing page'
         />
+
+        <FormField
+          label='Tags*'
+          id='tags'
+          name='tags'
+          placeholder='AI, SaaS, Productivity'
+          required
+          onChange={() => {}}
+          error=''
+          helperText='Comma separated tags(e.g AI, SaaS, Productivity)'
+        />
+        <Button type='submit' size={'lg'} className='w-full'>
+          Submit Products
+        </Button>
       </form>
     </div>
   );

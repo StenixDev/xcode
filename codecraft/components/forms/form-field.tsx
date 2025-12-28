@@ -1,6 +1,6 @@
-import { placeholder } from 'drizzle-orm';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 
 interface FormFieldProps {
   label: string;
@@ -8,9 +8,14 @@ interface FormFieldProps {
   id: string;
   placeholder?: string;
   required: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => void;
   error?: string;
   helperText?: string;
+  textarea?: boolean;
 }
 
 function FormField({
@@ -22,23 +27,37 @@ function FormField({
   onChange,
   error,
   helperText,
+  textarea,
 }: FormFieldProps) {
   return (
-    <>
+    <div className='space-y-2'>
       <Label htmlFor='name'>{label}</Label>
-      <Input
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        required={required}
-        onChange={onChange}
-      />
+
+      {textarea ? (
+        <Textarea
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          onChange={
+            onChange as (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+          }
+        />
+      ) : (
+        <Input
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          onChange={onChange}
+        />
+      )}
 
       {helperText && (
         <p className='text-xs text-muted-foreground'>{helperText}</p>
       )}
       {error && <p className='text-sm text-destructive'> {error} </p>}
-    </>
+    </div>
   );
 }
 export default FormField;
