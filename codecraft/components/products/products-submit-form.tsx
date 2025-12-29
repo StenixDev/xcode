@@ -1,9 +1,9 @@
 'use client';
 
-import { SparkleIcon } from 'lucide-react';
+import { Loader2Icon, SparkleIcon } from 'lucide-react';
 import FormField from '../forms/form-field';
 import { Button } from '../ui/button';
-import { addProduct } from '@/lib/products/product-actions';
+import { addProductAction } from '@/lib/products/product-actions';
 import { useActionState } from 'react';
 
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
 
 function ProductSubmitForm() {
   const [state, formAction, isPending] = useActionState(
-    addProduct,
+    addProductAction,
     initialState
   );
 
@@ -84,9 +84,20 @@ function ProductSubmitForm() {
           error=''
           helperText='Comma separated tags(e.g AI, SaaS, Productivity)'
         />
-        <Button type='submit' size={'lg'} className='w-full'>
-          <SparkleIcon className='size-4' />
-          Submit Products
+        <Button
+          type='submit'
+          size={'lg'}
+          className='w-full'
+          disabled={isPending}
+        >
+          {isPending ? (
+            <Loader2Icon className='size-4 animate-spin' />
+          ) : (
+            <>
+              <SparkleIcon className='size-4' />
+              Submit Products
+            </>
+          )}
         </Button>
       </form>
     </div>
