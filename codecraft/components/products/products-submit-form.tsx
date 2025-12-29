@@ -30,7 +30,7 @@ function ProductSubmitForm() {
           placeholder='My awesome product'
           required
           onChange={() => {}}
-          error={errors.name}
+          error={errors?.name}
         />
 
         <FormField
@@ -40,7 +40,7 @@ function ProductSubmitForm() {
           placeholder='my-awesome-product'
           required
           onChange={() => {}}
-          error={errors.slug}
+          error={errors?.slug}
           helperText='URL-friendly version of your product name'
         />
 
@@ -51,7 +51,7 @@ function ProductSubmitForm() {
           placeholder='A brief, catchy description'
           required
           onChange={() => {}}
-          error={errors.tagline}
+          error={errors?.tagline}
         />
 
         <FormField
@@ -61,18 +61,18 @@ function ProductSubmitForm() {
           placeholder='Tell us about your product...'
           required
           onChange={() => {}}
-          error={errors.description}
+          error={errors?.description}
           textarea
         />
 
         <FormField
           label='Website URL*'
-          id='websiteurl'
-          name='websiteurl'
+          id='websiteUrl'
+          name='websiteUrl'
           placeholder='https://yourproduct.com'
           required
           onChange={() => {}}
-          error={errors.websiteUrl}
+          error={errors?.websiteUrl}
           helperText='Enter your landing page'
         />
 
@@ -83,7 +83,7 @@ function ProductSubmitForm() {
           placeholder='AI, SaaS, Productivity'
           required
           onChange={() => {}}
-          error={errors.tags}
+          error={errors?.tags}
           helperText='Comma separated tags(e.g AI, SaaS, Productivity)'
         />
         <Button

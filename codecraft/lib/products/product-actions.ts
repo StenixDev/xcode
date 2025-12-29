@@ -65,6 +65,7 @@ export const addProductAction = async (
       tags: tagArray,
       status: 'pending',
       submittedBy: userEmail,
+      organizationId: '',
       userId,
     });
 
