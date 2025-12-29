@@ -1,6 +1,7 @@
 'use server';
 
 import { auth } from '@clerk/nextjs/server';
+import { productSchema } from './product-validation';
 
 type FormState = {
   success: boolean;
@@ -28,6 +29,23 @@ export const addProductAction = async (
     // Data
 
     const rawFormData = Object.fromEntries(formData.entries());
+
+    // validate data
+
+    const validateData = productSchema.safeParse(rawFormData);
+
+    if (!validateData.success) {
+      console.log(validateData.error.flatten().fieldErrors);
+      return {
+        success: false,
+        errors: validateData.error.flatten().fieldErrors,
+        message: 'Invalid data',
+      };
+    }
+
+    const data = validateData.data;
+
+    // transform the data
   } catch (error) {
     return {
       success: false,
