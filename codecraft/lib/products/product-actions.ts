@@ -1,7 +1,10 @@
 'use server';
 
-import { auth } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import { productSchema } from './product-validation';
+import { db } from '@/db';
+import { products } from '@/db/schema';
+import z, { success } from 'zod';
 
 type FormState = {
   success: boolean;
@@ -28,6 +31,9 @@ export const addProductAction = async (
 
     // Data
 
+    const user = await currentUser();
+    const userEmail = user?.emailAddresses?.[0].emailAddress || 'Anonymous';
+
     const rawFormData = Object.fromEntries(formData.entries());
 
     // validate data
@@ -43,10 +49,40 @@ export const addProductAction = async (
       };
     }
 
-    const data = validateData.data;
+    const { name, slug, tagline, description, websiteUrl, tags } =
+      validateData.data;
 
     // transform the data
+
+    const tagArray = tags ? tags.filter((tag) => typeof tag === 'string') : [];
+
+    await db.insert(products).values({
+      name,
+      slug,
+      tagline,
+      description,
+      websiteUrl,
+      tags: tagArray,
+      status: 'pending',
+      submittedBy: userEmail,
+      userId,
+    });
+
+    return {
+      success: true,
+      message: 'Product submitted successfully! it will be reviewed shortly',
+    };
   } catch (error) {
+    console.log(error);
+
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        errors: error.flatten().fieldErrors,
+        message: 'Validation failed. Please check the form',
+      };
+    }
+
     return {
       success: false,
       errors: error,

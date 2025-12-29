@@ -18,6 +18,8 @@ function ProductSubmitForm() {
     initialState
   );
 
+  const { errors, message, success } = state;
+
   return (
     <div>
       <form className='space-y-6' action={formAction}>
@@ -28,7 +30,7 @@ function ProductSubmitForm() {
           placeholder='My awesome product'
           required
           onChange={() => {}}
-          error=''
+          error={errors.name}
         />
 
         <FormField
@@ -38,7 +40,7 @@ function ProductSubmitForm() {
           placeholder='my-awesome-product'
           required
           onChange={() => {}}
-          error=''
+          error={errors.slug}
           helperText='URL-friendly version of your product name'
         />
 
@@ -49,7 +51,7 @@ function ProductSubmitForm() {
           placeholder='A brief, catchy description'
           required
           onChange={() => {}}
-          error=''
+          error={errors.tagline}
         />
 
         <FormField
@@ -59,7 +61,7 @@ function ProductSubmitForm() {
           placeholder='Tell us about your product...'
           required
           onChange={() => {}}
-          error=''
+          error={errors.description}
           textarea
         />
 
@@ -70,7 +72,7 @@ function ProductSubmitForm() {
           placeholder='https://yourproduct.com'
           required
           onChange={() => {}}
-          error=''
+          error={errors.websiteUrl}
           helperText='Enter your landing page'
         />
 
@@ -81,7 +83,7 @@ function ProductSubmitForm() {
           placeholder='AI, SaaS, Productivity'
           required
           onChange={() => {}}
-          error=''
+          error={errors.tags}
           helperText='Comma separated tags(e.g AI, SaaS, Productivity)'
         />
         <Button
