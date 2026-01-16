@@ -14,7 +14,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   const { id } = await params;
   const action = await searchParams;
 
-  if (action) {
+  if (action?.action === 'remove') {
     console.log('removing task ', id, action);
   }
 
