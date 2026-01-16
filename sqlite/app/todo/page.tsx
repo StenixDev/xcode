@@ -1,8 +1,9 @@
-import prisma from '@/lib/prisma';
+import { getTodos } from '@/actions/todo';
 import { Todo } from '@/src/generated/prisma/client';
+import Link from 'next/link';
 
 async function Page() {
-  const todos = await prisma.todo.findMany();
+  const todos = await getTodos();
 
   return (
     <div>
@@ -15,5 +16,9 @@ async function Page() {
 export default Page;
 
 function Task({ todo }: { todo: Todo }) {
-  return <span className='block'>{todo.task}</span>;
+  return (
+    <span className='block'>
+      {todo.task} | <Link href={`/todo/edit/${todo.id}`}>edit</Link>
+    </span>
+  );
 }
