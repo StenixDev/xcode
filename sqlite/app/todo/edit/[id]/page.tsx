@@ -1,4 +1,4 @@
-import { getTodo, updateTodo } from '@/actions/todo';
+import { getTodo, todoDelete, updateTodo } from '@/actions/todo';
 import Link from 'next/link';
 
 type PageProps = {
@@ -16,6 +16,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   if (action?.action === 'remove') {
     console.log('removing task ', id, action);
+    await todoDelete(Number(id));
   }
 
   const todo = await getTodo(Number(id));

@@ -44,3 +44,13 @@ export async function updateTodo(formData: FormData) {
 
   redirect('/todo');
 }
+
+export async function todoDelete(id: number) {
+  await prisma.todo.delete({
+    where: {
+      id,
+    },
+  });
+
+  redirect('/todo');
+}
