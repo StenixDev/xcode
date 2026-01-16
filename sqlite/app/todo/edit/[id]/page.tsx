@@ -3,12 +3,20 @@ import Link from 'next/link';
 
 type PageProps = {
   params: Promise<{
-    id: number;
+    id: string;
+  }>;
+  searchParams?: Promise<{
+    action?: string;
   }>;
 };
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const { id } = await params;
+  const action = await searchParams;
+
+  if (action) {
+    console.log('removing task ', id, action);
+  }
 
   const todo = await getTodo(Number(id));
 

@@ -13,6 +13,22 @@ export async function getTodo(id: number) {
   });
 }
 
+export async function createTodo(formData: FormData) {
+  const task = formData.get('task') as string;
+
+  if (!task || !task.trim()) {
+    return;
+  }
+
+  await prisma.todo.create({
+    data: {
+      task,
+    },
+  });
+
+  redirect('/todo');
+}
+
 export async function updateTodo(formData: FormData) {
   const id = Number(formData.get('id'));
   const task = formData.get('task') as string;
