@@ -1,4 +1,4 @@
-import { getTodo } from '@/actions/todo';
+import { getTodo, updateTodo } from '@/actions/todo';
 import Link from 'next/link';
 
 type PageProps = {
@@ -13,10 +13,11 @@ export default async function Page({ params }: PageProps) {
   const todo = await getTodo(Number(id));
 
   return (
-    <form className='space-y-5 flex flex-col w-xs'>
+    <form action={updateTodo} className='space-y-5 flex flex-col w-xs'>
       <h1>
         Edit Task | <Link href={'/todo'}>Home</Link>
       </h1>
+      <input type='hidden' name='id' value={todo?.id} id='id' />
       <input
         type='text'
         name='task'

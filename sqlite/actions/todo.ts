@@ -1,5 +1,6 @@
 'use server';
 import prisma from '@/lib/prisma';
+import { redirect } from 'next/navigation';
 export async function getTodos() {
   return await prisma.todo.findMany();
 }
@@ -12,13 +13,18 @@ export async function getTodo(id: number) {
   });
 }
 
-export async function updateTodo(id: number) {
+export async function updateTodo(formData: FormData) {
+  const id = Number(formData.get('id'));
+  const task = formData.get('task') as string;
+
   await prisma.todo.update({
     where: {
       id,
     },
     data: {
-      task: 'Updated title',
+      task,
     },
   });
+
+  redirect('/todo');
 }
